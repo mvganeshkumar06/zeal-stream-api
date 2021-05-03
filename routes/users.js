@@ -21,7 +21,13 @@ router.get("/:userId", async (req, res) => {
 		const user = await users
 			.findById(userId)
 			.select("_id userName")
-			.populate("playlists")
+			.populate({
+				path: "playlists",
+				populate: {
+					path: "creator",
+					select: "_id, userName",
+				},
+			})
 			.populate("subscriptions");
 		res.json(user);
 	} catch (err) {
