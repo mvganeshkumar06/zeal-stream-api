@@ -25,7 +25,7 @@ router.get("/:userId", async (req, res) => {
 			.populate("subscriptions");
 		res.json(user);
 	} catch (err) {
-		res.json({ errorMessage: err });
+		res.status(500).json({ errorMessage: err });
 	}
 });
 
