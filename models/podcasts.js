@@ -6,6 +6,10 @@ const podcastsSchema = Schema({
 		type: String,
 		required: [true, "Name field is required"],
 	},
+	imageUrl: {
+		type: String,
+		required: [true, "Image Url field is required"],
+	},
 	podcastUrl: {
 		type: String,
 		required: [true, "Podcast Url field is required"],
