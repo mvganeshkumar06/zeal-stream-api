@@ -25,6 +25,7 @@ const playlistsSchema = Schema({
 	description: [
 		{
 			type: String,
+			default: "",
 		},
 	],
 });
