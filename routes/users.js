@@ -32,9 +32,29 @@ router.get("/:userId", async (req, res) => {
 			.populate({
 				path: "playlists",
 				populate: {
+					path: "videos",
+					populate: {
+						path: "channel",
+						select: "_id name avatar subscriptions",
+					},
+				},
+			})
+			.populate({
+				path: "playlists",
+				populate: {
 					path: "podcasts",
 					select:
 						"_id name imageUrl streams duration uploadedDate channel",
+				},
+			})
+			.populate({
+				path: "playlists",
+				populate: {
+					path: "podcasts",
+					populate: {
+						path: "channel",
+						select: "_id name avatar subscriptions",
+					},
 				},
 			})
 			.populate({

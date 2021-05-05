@@ -110,4 +110,28 @@ router.post("/:userId/:playlistId", async (req, res) => {
 	}
 });
 
+router.post("/:playlistId", async (req, res) => {
+	try {
+		const { playlistId } = req.params;
+		let allPlaylists = await playlists
+			.find({})
+			.populate("creator", "_id userName")
+			.populate(
+				"podcasts",
+				"_id name imageUrl streams duration uploadedDate"
+			)
+			.populate(
+				"videos",
+				"_id name imageUrl streams duration uploadedDate"
+			);
+		allPlaylists = allPlaylists.filter(
+			(playlist) => playlist._id.toString() !== playlistId
+		);
+		await allPlaylists.save();
+		res.json(allPlaylists);
+	} catch (err) {
+		res.status(500).json({ errorMessage: err });
+	}
+});
+
 module.exports = router;
